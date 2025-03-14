@@ -24,6 +24,7 @@ import { executeTrade } from "@/lib/api";
 import { useWallet } from "@/contexts/WalletContext";
 import { cn } from "@/lib/utils";
 import { buySellGraph } from "@/lib/gql";
+import { toast } from "sonner";
 
 interface TradingPanelProps {
   Solana: number;
@@ -101,9 +102,9 @@ export function TradingPanel({
         wallet: wallet
       };
 
-      const transaction = await buySellGraph(params);
+      const signature = await buySellGraph(params);
 
-      wallet.signTransaction(transaction);
+      toast.success(`Transaction confirmed ${signature}`);
 
       // Reset form
       setAmount("");

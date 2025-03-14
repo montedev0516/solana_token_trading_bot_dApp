@@ -71,7 +71,7 @@ function Footer() {
     <footer className="border-t border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 py-6 mt-12">
       <div className="container flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
         <p>© {new Date().getFullYear()} Solana Trader. All rights reserved.</p>
-        <p>Trading simulated tokens on Solana main-net only. No real assets are used.</p>
+        <p>Trading simulated tokens on Solana testnet only. No real assets are used.</p>
       </div>
     </footer>
   );

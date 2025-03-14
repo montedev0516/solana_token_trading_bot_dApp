@@ -2,7 +2,7 @@ import { Token, TradeParams } from "@/utils/types";
 import { deserializeTransaction } from "./sign-transaction";
 
 // const HYGRAPH_ENDPOINT = 'http://46.4.5.53:4000/graphql';  // Replace with your endpoint
-const HYGRAPH_ENDPOINT = 'https://gibbon-direct-abnormally.ngrok-free.app/graphql';  // Replace with your endpoint
+const HYGRAPH_ENDPOINT = 'https://gibbon-direct-abnormally.ngrok-free.app/graphql';
 
 const GET_ALL_Token_QUERY = `
     query { tokens { address name symbol logoURI decimals price lastTradeUnixTime liquidity mc v24hChangePercent v24hUSD } }
@@ -133,12 +133,9 @@ export const buySellGraph = async (param: TradeParams) => {
         
         console.log(swapTransaction);
 
-        const transaction = await deserializeTransaction(swapTransaction.data.trade, param.wallet);
+        const signature = await deserializeTransaction(swapTransaction.data.trade, param.wallet);
 
-        param.wallet.signTransaction(transaction);
-        
-
-        return transaction
+        return signature
     }
     catch(err:any){
         throw new Error(err.message);

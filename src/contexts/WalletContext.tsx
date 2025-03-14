@@ -25,6 +25,7 @@ export const WalletProvider: React.FC<WalletProviderProps> = ({ children }) => {
   useEffect(() => {
     const provider = getPhantomProvider();
     if (provider) {
+      console.log('wallet provider', provider)
       setWallet(provider);
       
       // Check if already connected
@@ -57,6 +58,7 @@ export const WalletProvider: React.FC<WalletProviderProps> = ({ children }) => {
       setStatus('connecting');
       const { publicKey } = await wallet.connect();
       setPublicKey(publicKey);
+      console.log('dd', publicKey.toString())
       setStatus('connected');
       toast.success("Wallet connected successfully!");
     } catch (error) {

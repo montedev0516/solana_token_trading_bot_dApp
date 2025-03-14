@@ -1,6 +1,6 @@
-**Solana Token Trading Dapp**
+#Solana Token Trading Dapp
 
-# Features
+## Features
 1. Token List
    - Token name, symbol, price, 24-h price change
    - search/filter
@@ -16,7 +16,7 @@
 5. GraphQL Client
 6. Form Validation
 
-# Required Module, library
+## Required Module, library
 
 - radix-ui
 - solana/web3.js

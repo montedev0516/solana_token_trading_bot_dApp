@@ -1,5 +1,5 @@
 
-import { PublicKey, Connection } from '@solana/web3.js';
+import { PublicKey, Connection, Transaction, VersionedTransaction } from '@solana/web3.js';
 
 export type WalletStatus = 'connected' | 'disconnected' | 'connecting';
 
@@ -9,10 +9,10 @@ export interface PhantomProvider {
   connect: (options?: { onlyIfTrusted?: boolean }) => Promise<{ publicKey: PublicKey }>;
   disconnect: () => Promise<void>;
   signMessage: (message: Uint8Array) => Promise<{ signature: Uint8Array }>;
-  signTransaction: any;
-  signAllTransactions: any;
+  signTransaction: (transaction: any) => Promise<any>; // Update to return the signed transaction
+  signAllTransactions: (transactions: any[]) => Promise<any[]>; // Specify the parameter for clarity
   on: (event: string, callback: (args: any) => void) => void;
-  request: (method: any, params: any) => Promise<any>;
+  request: (method: string, params: any) => Promise<any>;
 }
 
 export interface WalletContextType {
@@ -28,6 +28,7 @@ export const getPhantomProvider = (): PhantomProvider | null => {
   if (typeof window !== 'undefined' && 'solana' in window) {
     const provider = (window as any).solana;
     if (provider.isPhantom) {
+      console.log('provider', provider)
       return provider;
     }
   }
