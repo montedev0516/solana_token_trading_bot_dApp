@@ -12,7 +12,7 @@
    - Stop-loss price
    - Buy/Sell button
 4. Trading Mode Toggle
-  - Auto/Manual 
+   - Auto/Manual 
 5. GraphQL Client
 6. Form Validation
 
