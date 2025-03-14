@@ -1,3 +1,4 @@
+import { PhantomProvider } from "./wallet";
 
 export interface Token {
   id: string;
@@ -8,7 +9,9 @@ export interface Token {
   volume24h: number;
   logoUrl: string;
   address: string;
+  decimal: number;
 }
+
 
 export interface TradeHistory {
   id: string;
@@ -23,11 +26,14 @@ export interface TradeHistory {
 }
 
 export interface TradeParams {
+  walletAddress: string
   tokenAddress: string;
   amount: number;
   slippageTolerance: number;
   stopLossPrice: number | null;
-  action: 'BUY' | 'SELL';
+  action: 'Buy' | 'Sell';
+  decimal: number;
+  wallet: PhantomProvider
 }
 
 export type TradingMode = 'AUTO' | 'MANUAL';

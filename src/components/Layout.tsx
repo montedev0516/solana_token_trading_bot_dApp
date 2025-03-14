@@ -5,6 +5,7 @@ import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
+import { WalletConnectButton } from "@/components/WalletConnectButton";
 
 interface LayoutProps {
   children: ReactNode;
@@ -57,6 +58,7 @@ function Header() {
               <Link to="/history">Trade History</Link>
             </Button>
           </nav>
+          <WalletConnectButton />
           <ThemeToggle />
         </div>
       </div>

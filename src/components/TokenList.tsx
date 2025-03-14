@@ -8,13 +8,16 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
+import { getAllTokenList } from "@/lib/gql";
 
 interface TokenListProps {
   onSelectToken: (token: Token) => void;
+  setSolanaPrice:any;
+  tokens: Token[]
+  setTokens: any;
 }
 
-export function TokenList({ onSelectToken }: TokenListProps) {
-  const [tokens, setTokens] = useState<Token[]>([]);
+export function TokenList({ onSelectToken, setSolanaPrice, tokens, setTokens }: TokenListProps) {
   const [filteredTokens, setFilteredTokens] = useState<Token[]>([]);
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -23,7 +26,8 @@ export function TokenList({ onSelectToken }: TokenListProps) {
     const loadTokens = async () => {
       setIsLoading(true);
       try {
-        const data = await fetchTokens();
+        const data = await getAllTokenList();
+        setSolanaPrice(data[0].price);
         setTokens(data);
         setFilteredTokens(data);
       } catch (error) {
@@ -36,16 +40,26 @@ export function TokenList({ onSelectToken }: TokenListProps) {
     loadTokens();
   }, []);
 
+  useEffect(()=>{
+    setFilteredTokens(tokens);
+    handleSearch(search);
+    console.log(filteredTokens);
+  },[tokens])
+
   const handleSearch = async (query: string) => {
     setSearch(query);
-    if (query.trim() === "") {
+    if (query.trim() == "" || query == "") {
       setFilteredTokens(tokens);
       return;
     }
 
     try {
-      const results = await searchTokens(query);
-      setFilteredTokens(results);
+      const filtered = tokens.filter(
+        (token) =>
+          token.name.toLowerCase().includes(query.toLowerCase()) ||
+          token.symbol.toLowerCase().includes(query.toLowerCase())
+      );
+      setFilteredTokens(filtered);
     } catch (error) {
       console.error("Failed to search tokens:", error);
     }
@@ -67,10 +81,10 @@ export function TokenList({ onSelectToken }: TokenListProps) {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {isLoading
-          ? Array.from({ length: 6 }).map((_, i) => (
+          ? Array.from({ length: 6 })?.map((_, i) => (
               <TokenCardSkeleton key={i} />
             ))
-          : filteredTokens.map((token) => (
+          : filteredTokens?.map((token) => (
               <TokenCard
                 key={token.id}
                 token={token}
@@ -96,7 +110,7 @@ interface TokenCardProps {
 }
 
 function TokenCard({ token, onSelectToken }: TokenCardProps) {
-  const priceChangeFormatted = token.priceChange24h.toFixed(2);
+  const priceChangeFormatted = token.priceChange24h?.toFixed(2);
   const isPriceUp = token.priceChange24h >= 0;
   const formattedPrice = token.price < 0.01 
     ? token.price.toExponential(2) 
@@ -148,7 +162,7 @@ function TokenCard({ token, onSelectToken }: TokenCardProps) {
 
           <div className="flex justify-between items-center">
             <span className="text-xs text-muted-foreground">
-              24h Vol: ${(token.volume24h / 1000000).toFixed(2)}M
+              24h Vol: ${(token.volume24h / 1000000)?.toFixed(2)}M
             </span>
             <Button 
               size="sm" 

@@ -39,7 +39,9 @@
     "@radix-ui/react-toggle": "^1.1.0",
     "@radix-ui/react-toggle-group": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.1.4",
+    "@solana/web3.js": "^1.98.0",
     "@tanstack/react-query": "^5.56.2",
+    "buffer": "^6.0.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
@@ -62,6 +64,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.26.10",
     "@eslint/js": "^9.9.0",
     "@tailwindcss/typography": "^0.5.15",
     "@types/node": "^22.5.5",

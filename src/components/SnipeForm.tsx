@@ -7,12 +7,16 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
+import { Token } from "@/utils/types";
+import { addNewToken } from "@/lib/gql";
 
 interface SnipeFormProps {
   onTokenAdded: () => void;
+  tokens: Token[]
+  setTokens: any;
 }
 
-export function SnipeForm({ onTokenAdded }: SnipeFormProps) {
+export function SnipeForm({ onTokenAdded, tokens, setTokens }: SnipeFormProps) {
   const [tokenAddress, setTokenAddress] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -33,7 +37,16 @@ export function SnipeForm({ onTokenAdded }: SnipeFormProps) {
     setIsSubmitting(true);
 
     try {
-      await addTokenToWatchlist(tokenAddress);
+      const newToken: Token = await addNewToken(tokenAddress, tokens.length);
+      console.log("new Token-->", newToken);
+
+      const newTokenList: Token[] = [];
+      newTokenList.push(tokens[0]);
+      newTokenList.push(newToken);
+      for(let i=1;i<tokens.length;i++){
+        newTokenList.push(tokens[i])
+      }
+      setTokens(newTokenList);
       setTokenAddress("");
       onTokenAdded();
     } catch (error) {

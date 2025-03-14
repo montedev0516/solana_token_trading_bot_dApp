@@ -1,1 +1,1 @@
-# solana_token_trading_bot_dApp
+**Solana Trader**

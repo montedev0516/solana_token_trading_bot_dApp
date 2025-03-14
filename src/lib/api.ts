@@ -13,6 +13,7 @@ const mockTokens: Token[] = [
     logoUrl: "https://cryptologos.cc/logos/solana-sol-logo.png",
     address: "So11111111111111111111111111111111111111112",
   },
+  
   {
     id: "2",
     name: "Raydium",
@@ -186,6 +187,8 @@ export const addTokenToWatchlist = async (address: string): Promise<Token | null
   
   return new Promise((resolve) => {
     setTimeout(() => {
+
+      
       // For demo purposes, we'll just pretend we added a new token
       const newToken: Token = {
         id: Math.random().toString(36).substring(2, 9),
@@ -196,6 +199,7 @@ export const addTokenToWatchlist = async (address: string): Promise<Token | null
         volume24h: 1000000,
         logoUrl: "https://cryptologos.cc/logos/placeholder-logo.png",
         address: address,
+        decimal: 9
       };
       
       // In a real app, we would add this to our database
