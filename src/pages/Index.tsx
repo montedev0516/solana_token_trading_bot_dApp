@@ -44,7 +44,7 @@ const Index = () => {
             Solana Token Trading Bot
           </h1>
           <p className="text-muted-foreground max-w-3xl">
-            Execute simulated trades on Solana tokens. Search for tokens, set your parameters, and trade with ease. All trades are simulated on the Solana testnet.
+            Execute simulated trades on Solana tokens. Search for tokens, set your parameters, and trade with ease. All trades are simulated on the Solana main-net.
           </p>
         </section>
 
