@@ -129,7 +129,7 @@ export function TradingPanel({
           <div>
             <CardTitle className="text-2xl font-bold">Trading Panel</CardTitle>
             <CardDescription>
-              Execute simulated trades on Solana testnet
+              Execute simulated trades on Solana main-net
             </CardDescription>
           </div>
           <div className="flex items-center gap-2">
